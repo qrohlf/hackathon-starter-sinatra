@@ -14,3 +14,7 @@ require 'erb'
 Dotenv.load
 # load the config from config.yml
 config_file './config.yml'
+
+# Session:Cookie needed by OmniAuth
+use Rack::Session::Cookie, :expire_after => 1209600, # 7 days
+                           :secret => ENV['COOKIE_SECRET']
