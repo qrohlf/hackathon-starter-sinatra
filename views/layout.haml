@@ -1,0 +1,14 @@
+!!!
+%html
+    %head
+        %link(rel="stylesheet" href="/css/style.css")
+        %link(rel="icon" href="/favicon.ico")
+        %meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        %title=@title
+    %body
+        .navbar.navbar-default.navbar-fixed-top
+            =erb :navbar
+        .container
+            =yield
+        %script(src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js")
+        %script(src="/js/lib/bootstrap/bootstrap.min.js")
