@@ -8,10 +8,10 @@ end
 
 get '/examples' do
     @examples = Example.all
-    haml :"examples/examples"
+    haml :examples
 end
 
 get '/examples/:id' do
     @example = Example.find(params[:id])
-    haml :"examples/example"
+    haml :example
 end
