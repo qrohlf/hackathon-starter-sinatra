@@ -19,6 +19,7 @@ Additionally, if you want to customize stylesheets, you will need a [LESS](http:
 - if you have older versions of gems installed, you may want to `bundle update`
 - rename `.env-example` to `.env` and edit it with your project's API keys and database url.
 - create the database and examples table with `rake db:migrate`
+- seed the database with testing data with `rake db:seed`
 - run`shotgun` to start the app on your computer
 - point your web browser to [http://127.0.0.1:9393/](http://127.0.0.1:9393/) to see the app in action.
 
@@ -29,6 +30,7 @@ Additionally, if you want to customize stylesheets, you will need a [LESS](http:
 - Pre-packaged with the [Lumen](http://bootswatch.com/lumen/) [Bootswatch](http://bootswatch.com)  theme
 - [OmniAuth](https://github.com/intridea/omniauth) for third-party logins
 - [Shotgun](https://github.com/rtomayko/shotgun) for automatically reloading the app after code changes
+- [ActiveSupport](http://guides.rubyonrails.org/active_support_core_extensions.html) with all core extensions loaded by default for all the bells and whistles
 
 # How do I do X?
 
@@ -90,7 +92,12 @@ The only javascript that this project includes is the bootstrap required javascr
 ## Pipeline
 There is no asset pipeline built into this project. Compile/concat your scripts and styles locally using a tool like [CodeKit](https://incident57.com/codekit/), [LiveReload](http://livereload.com) or [SimpLess](http://wearekiss.com/simpless). Don't forget to commit changes to the compiled scripts and styles!
 
-# Why Sinatra and not Rails?
+# Rationale
+
+## Why Sinatra and not Rails?
 Rails is a great tool for speeding up development - if your whole team knows Rails. Otherwise, Sinatra is better.
 
-For most hackathon-style micro applications, the full Rails framework introduces too much friction to the development process. It's got a lot of moving parts, a deeply nested directory structure that's difficult for team members without Rails experience to traverse, and a lot of implicit "magic" that can also trip up team members. Sinatra with ActiveRecord gives a lot of the speed benefits of a Rails project without the added complexity of the asset pipeline, sophisticated routing, and other stuff that comes with Rails but isn't that useful in smaller projects.
+For most hackathon-style micro applications, the full Rails framework introduces too much friction to the development process. It's got a deeply nested directory structure, lots of distracting boilerplate files, and a lot of implicit "magic" that can also trip up team members. Sinatra with ActiveRecord gives a lot of the convenience of a Rails project with a flatter structure, less boilerplate to wade through, and more explicit code that is easier for people without Rails experience to follow..
+
+## Why no tests?
+This is for a hackathon. TDD is great for longer-term projects, but it's unnecessary overhead when time is of the essence and bugs aren't a huge deal.
