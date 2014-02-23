@@ -13,6 +13,7 @@ gem 'dotenv'
 gem 'squeel'
 gem 'json'
 gem 'require_all'
+gem 'activesupport', require: ['active_support', 'active_support/core_ext']
 
 group :development do
     gem "sqlite3"

@@ -1,0 +1,5 @@
+.list-group.col-md-6.col-md-offset-3
+    - @examples.each do |example|
+        %a.list-group-item{href: "/examples/#{example.id}"}
+            %h4.list-group-item-heading=example.name
+            %p.list-group-item-text=example.description

@@ -106,6 +106,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord
+  activesupport
   dotenv
   haml
   json

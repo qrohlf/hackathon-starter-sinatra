@@ -18,6 +18,7 @@ Additionally, if you want to customize stylesheets, you will need a [LESS](http:
 - bundle dependencies with `bundle install --without production`
 - if you have older versions of gems installed, you may want to `bundle update`
 - rename `.env-example` to `.env` and edit it with your project's API keys and database url.
+- create the database and examples table with `rake db:migrate`
 - run`shotgun` to start the app on your computer
 - point your web browser to [http://127.0.0.1:9393/](http://127.0.0.1:9393/) to see the app in action.
 
