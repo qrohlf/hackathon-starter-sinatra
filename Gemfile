@@ -12,6 +12,7 @@ gem 'rake'
 gem 'dotenv'
 gem 'squeel'
 gem 'json'
+gem 'require_all'
 
 group :development do
     gem "sqlite3"

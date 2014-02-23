@@ -29,6 +29,53 @@ Additionally, if you want to customize stylesheets, you will need a [LESS](http:
 - [OmniAuth](https://github.com/intridea/omniauth) for third-party logins
 - [Shotgun](https://github.com/rtomayko/shotgun) for automatically reloading the app after code changes
 
+# How do I do X?
+
+## X == add a model
+If you're not familiar with ActiveRecord and  ActiveRecord database migrations, follow this guide to create a new model for your application (replace 'example' with the name of your model, making sure to adjust for pluralization and capitalization).
+
+First, create the database table where the model's data will be stored:
+```bash
+rake db:create_migration NAME=create_examples
+```
+*Note that "examples" is plural. In ActiveRecord, the convention is that database table names are expected to be plural, while class names are singular. For more on this, see [here](http://edgeguides.rubyonrails.org/active_record_basics.html#naming-conventions).*
+
+Now look in your `db/migrate` directory. There should be a new file with your migration there. (It will be named something like `20140223171803_create_examples.rb`). Open it and add your model details (documentation on how to write ActiveRecord migrations is available [here](http://edgeguides.rubyonrails.org/migrations.html)).
+
+My database migration looks like this:
+```ruby
+class CreateExamples < ActiveRecord::Migration
+  def change
+    create_table :examples do |t|
+        t.string :name
+        t.text :description
+
+        t.timestamps
+    end
+  end
+end
+```
+
+Now you need to create your model class. Create a new file in `models/` called `Example.rb` (note that the class name is singular and captialized). Open it and declare a subclass of `ActiveRecord::Base` like so:
+```ruby
+class Example < ActiveRecord::Base
+end
+```
+
+That's all the code you need. (For documentation on some fancier things you can do with ActiveRecord like validations and associations, see [this guide](http://edgeguides.rubyonrails.org/active_record_basics.html)).
+
+Now, open a terminal and run your database migration:
+```bash
+rake db:migrate
+```
+This will create a table in your database called `examples` with the columns `name`, `description`, `created_at`, and `updated_at` . It will also update `db/schema.rb` with your app's updated database schema.
+
+You can now create, read, update, and delete instances of your new model within your app. For example, 
+```ruby
+Example.create(name: 'foo', description: 'bar')
+```
+will create a new `Example` class and add it to the `examples` database.
+
 # Assets
 
 ## Styles
