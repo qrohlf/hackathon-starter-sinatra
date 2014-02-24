@@ -20,7 +20,7 @@ Additionally, if you want to customize stylesheets, you will need a [LESS](http:
 - rename `.env-example` to `.env` and edit it with your project's API keys and database url.
 - create the database and examples table with `rake db:migrate`
 - seed the database with testing data with `rake db:seed`
-- run`shotgun` to start the app on your computer
+- run `shotgun` to start the app on your computer
 - point your web browser to [http://127.0.0.1:9393/](http://127.0.0.1:9393/) to see the app in action.
 
 # Features
@@ -78,19 +78,6 @@ You can now create, read, update, and delete instances of your new model within 
 Example.create(name: 'foo', description: 'bar')
 ```
 will create a new `Example` class and add it to the `examples` database.
-
-# Assets
-
-## Styles
-This project comes pre-packaged with Bootstrap 3.1.1 and the Lumen theme from [Bootswatch](http://bootswatch.com), but any Bootstrap 4 themes should be drop-in replacements.
-
-Styles are written in LESS. This is because Bootstrap and Bootstrap themes all use LESS. 
-
-## Javascript
-The only javascript that this project includes is the bootstrap required javascript in`bootstrap.min.js`.  JQuery 2.1.0 is loaded via Google's Hosted Libraries CDN. The rest is all up to you.
-
-## Pipeline
-There is no asset pipeline built into this project. Compile/concat your scripts and styles locally using a tool like [CodeKit](https://incident57.com/codekit/), [LiveReload](http://livereload.com) or [SimpLess](http://wearekiss.com/simpless). Don't forget to commit changes to the compiled scripts and styles!
 
 # Rationale
 
