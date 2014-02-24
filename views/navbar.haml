@@ -1,0 +1,10 @@
+.container
+    .navbar-header
+        %a.navbar-brand{href: "/"}=settings.app_name
+        %button.navbar-toggle{"data-target" => "#navbar-main", "data-toggle" => "collapse", type: "button"}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+    #navbar-main.navbar-collapse.collapse
+        %ul.nav.navbar-nav= haml :nav_ul, locals: {nav: settings.nav_left}
+        %ul.nav.navbar-nav.navbar-right= haml :nav_ul, locals: {nav: settings.nav_right}

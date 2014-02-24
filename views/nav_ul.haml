@@ -1,0 +1,9 @@
+- nav.each do |name, value|
+    - if value.is_a? String
+        %li
+            %a{href: value}=name
+    - else
+        %li.dropdown
+            %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}=name+'<span class="caret">'
+            %ul.dropdown-menu
+                =haml :nav_ul, locals: {nav: value}

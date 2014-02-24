@@ -6,16 +6,18 @@
 require 'rubygems' 
 require 'bundler/setup'
 # require all of the gems in the gemfile
-Bundler.require(:default)
+Bundler.require
 # require any non-gem libraries that are needed
 require 'net/https'
 require 'erb'
 # require all of the app's models
 require_all './models'
+# set the app root
+set :root, File.expand_path("../../", __FILE__)
 # load the environment variables from .env (testing environment)
 Dotenv.load
-# load the config from config.yml
-config_file './config.yml'
+# load the config from config.rb
+require './app/config'
 
 # Session:Cookie needed by OmniAuth
 use Rack::Session::Cookie, :expire_after => 1209600, # 7 days
