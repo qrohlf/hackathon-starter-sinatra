@@ -5,8 +5,6 @@ gem 'haml'
 gem 'sinatra-contrib', require: 'sinatra/config_file'           
 gem "activerecord"
 gem "sinatra-activerecord", require: 'sinatra/activerecord'
-gem "omniauth"
-gem "omniauth-google-oauth2"
 gem 'tux'
 gem 'rake'
 gem 'dotenv'
@@ -14,6 +12,10 @@ gem 'squeel'
 gem 'json'
 gem 'require_all'
 gem 'activesupport', require: ['active_support', 'active_support/core_ext']
+gem 'rack-flash3', require: 'rack-flash'
+gem "sinatra-flash", require: 'sinatra/flash'
+gem 'bcrypt'
+gem 'bcrypt-ruby' #legacy
 
 group :development do
     gem "sqlite3"

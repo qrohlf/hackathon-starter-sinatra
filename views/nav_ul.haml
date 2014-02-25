@@ -4,6 +4,6 @@
             %a{href: value}=name
     - else
         %li.dropdown
-            %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}=name+'<span class="caret">'
+            %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}=name+' <span class="caret">'
             %ul.dropdown-menu
                 =haml :nav_ul, locals: {nav: value}

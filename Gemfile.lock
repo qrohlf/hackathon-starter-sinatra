@@ -19,43 +19,24 @@ GEM
     arel (4.0.2)
     atomic (1.1.14)
     backports (3.6.0)
+    bcrypt (3.1.6)
+    bcrypt-ruby (3.1.5)
+      bcrypt (>= 3.1.3)
     bond (0.4.3)
     builder (3.1.4)
     dotenv (0.10.0)
-    faraday (0.9.0)
-      multipart-post (>= 1.2, < 3)
     haml (4.0.5)
       tilt
-    hashie (2.0.5)
     i18n (0.6.9)
     json (1.8.1)
-    jwt (0.1.11)
-      multi_json (>= 1.5)
     minitest (4.7.5)
     multi_json (1.8.4)
-    multi_xml (0.5.5)
-    multipart-post (2.0.0)
-    oauth2 (0.9.3)
-      faraday (>= 0.8, < 0.10)
-      jwt (~> 0.1.8)
-      multi_json (~> 1.3)
-      multi_xml (~> 0.5)
-      rack (~> 1.2)
-    omniauth (1.2.1)
-      hashie (>= 1.2, < 3)
-      rack (~> 1.0)
-    omniauth-google-oauth2 (0.2.2)
-      omniauth (~> 1.0)
-      omniauth-oauth2
-    omniauth-oauth2 (1.1.2)
-      faraday (>= 0.8, < 0.10)
-      multi_json (~> 1.3)
-      oauth2 (~> 0.9.3)
-      omniauth (~> 1.2)
     pg (0.17.1)
     polyamorous (0.6.4)
       activerecord (>= 3.0)
     rack (1.5.2)
+    rack-flash3 (1.0.5)
+      rack
     rack-protection (1.5.2)
       rack
     rack-test (0.6.2)
@@ -86,6 +67,8 @@ GEM
       rack-test
       sinatra (~> 1.4.0)
       tilt (~> 1.3)
+    sinatra-flash (0.3.0)
+      sinatra (>= 1.0.0)
     sqlite3 (1.3.8)
     squeel (1.1.1)
       activerecord (>= 3.0)
@@ -107,18 +90,20 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   activesupport
+  bcrypt
+  bcrypt-ruby
   dotenv
   haml
   json
-  omniauth
-  omniauth-google-oauth2
   pg
+  rack-flash3
   rake
   require_all
   shotgun
   sinatra
   sinatra-activerecord
   sinatra-contrib
+  sinatra-flash
   sqlite3
   squeel
   tux

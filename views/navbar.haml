@@ -7,4 +7,7 @@
             %span.icon-bar
     #navbar-main.navbar-collapse.collapse
         %ul.nav.navbar-nav= haml :nav_ul, locals: {nav: settings.nav_left}
-        %ul.nav.navbar-nav.navbar-right= haml :nav_ul, locals: {nav: settings.nav_right}
+        %ul.nav.navbar-nav.navbar-right
+            - unless @user.nil? then nav = {@user.email => {'Account Settings' => '/account', 'Log Out' => '/logout'}} 
+            - else nav = {'Login' => '/login', 'Signup' => '/users/new'}
+            = haml :nav_ul, locals: {nav: nav}
