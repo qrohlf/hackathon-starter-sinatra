@@ -11,8 +11,9 @@
         .container#content-main
             -flash.each do |type, value|
                 .row
-                    .alert.col-md-6.col-md-offset-3{class: "alert-#{type}"}
-                        %p=value
+                    .col-md-6.col-md-offset-3
+                        .alert{class: "alert-#{type}"}
+                            %p=value
             =yield
         #footer
             .container
