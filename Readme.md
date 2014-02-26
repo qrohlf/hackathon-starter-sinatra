@@ -28,6 +28,7 @@ Additionally, if you want to customize stylesheets, you will need a [LESS](http:
 - [Squeel](https://github.com/activerecord-hackery/squeel) for ActiveRecord query awesomeness
 - [Bootstrap](http://getbootstrap.com) for dead-easy styling
 - Pre-packaged with the [Lumen](http://bootswatch.com/lumen/) [Bootswatch](http://bootswatch.com)  theme
+- Include the full [IcoMoon Free](http://icomoon.io/#preview-free) icon font
 - [OmniAuth](https://github.com/intridea/omniauth) for third-party logins
 - [Shotgun](https://github.com/rtomayko/shotgun) for automatically reloading the app after code changes
 - [ActiveSupport](http://guides.rubyonrails.org/active_support_core_extensions.html) with all core extensions loaded by default for all the bells and whistles

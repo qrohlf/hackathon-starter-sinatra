@@ -77,6 +77,11 @@ helpers do
         "<span class='glyphicon glyphicon-#{i}'></span>"
     end
 
+    #icomoon icons
+    def icon(i)
+        "<span class='icon-#{i}'></span>"
+    end
+
     def login(u)
         @user = u
         session[:user] = u.id

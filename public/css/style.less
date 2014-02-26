@@ -1,6 +1,7 @@
 @import "vendor/bootstrap/bootstrap";
 @import "vendor/theme/variables";
 @import "vendor/theme/bootswatch";
+@import (less) "vendor/icomoon/icomoon.css";
 
 body {
     padding-top: 100px;
@@ -26,4 +27,9 @@ body {
   padding-top: 20px;
   padding-bottom: 20px;
   text-align: center;
+}
+
+.btn [class^="icon-"], .btn [class*=" icon-"] {
+    vertical-align: -15%;
+    font-size: 16px;
 }
