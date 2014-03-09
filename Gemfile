@@ -16,6 +16,8 @@ gem 'rack-flash3', require: 'rack-flash'
 gem "sinatra-flash", require: 'sinatra/flash'
 gem 'bcrypt'
 gem 'bcrypt-ruby' #legacy
+gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
+gem 'redcarpet', require: 'redcarpet/compat' #markdown rendering
 
 group :development do
     gem "sqlite3"

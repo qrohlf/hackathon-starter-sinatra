@@ -32,6 +32,7 @@ Additionally, if you want to customize stylesheets, you will need a [LESS](http:
 - [OmniAuth](https://github.com/intridea/omniauth) for third-party logins
 - [Shotgun](https://github.com/rtomayko/shotgun) for automatically reloading the app after code changes
 - [ActiveSupport](http://guides.rubyonrails.org/active_support_core_extensions.html) with all core extensions loaded by default for all the bells and whistles
+- [Stripe Checkout](https://stripe.com/docs/checkout) for super-smooth and easy payment processing
 
 # How do I do X?
 

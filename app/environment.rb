@@ -36,3 +36,7 @@ ActiveRecord::Base.establish_connection(
   :database => db.path[1..-1],
   :encoding => 'utf8'
 )
+
+# Stripe config
+
+Stripe.api_key = ENV['STRIPE_KEY_SECRET']

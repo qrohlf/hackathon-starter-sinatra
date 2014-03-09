@@ -1,0 +1,23 @@
+/ Main jumbotron for a primary marketing message or call to action
+.jumbotron
+  %h1=settings.app_name
+  %p A powerful, full-featured, and simple framework designed for use at Startup Weekend and hackathon style events.
+  %p
+    %a.btn.btn-primary.btn-lg{:href => "https://github.com/qrohlf/hackathon-starter-sinatra", :role => "button"} View On GitHub »
+.row
+  .col-md-4.col-md-push-8
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title About
+      .panel-body 
+        %p.text-center
+          %img.img-circle.img-profile{src: '//qrohlf.com/images/profile.jpg', height: 128, width: 128, alt: 'profile pic', style: "border: 4px solid #e7e7e7;"}
+        %p.lead Hackathon Starter Sinatra is brought to you by <a href="http://qrohlf.com/">Quinn Rohlf</a>.
+        %p.lead="#{icon 'github3'} <a href='https://github.com/qrohlf/'>GitHub</a>"
+        %p.lead="#{icon 'twitter3'} <a href='https://twitter.com/qrohlf/'>Twitter</a>"
+        %p.lead="#{icon 'feed4'} <a href='https://qrohlf.com/'>Website</a>"
+  .col-md-8.col-md-pull-4
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Readme
+      .panel-body= find_and_preserve @readme
