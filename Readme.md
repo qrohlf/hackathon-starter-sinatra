@@ -1,4 +1,4 @@
-# hackathon-starter-sinatra
+# Hackathon Starter Sinatra
 
 This project is a minimalist starter framework intended to be used for small projects when speed of development is a priority. It was created to be used at "Startup Weekend" style events, where a significant portion of your development team may not have experience with Ruby or Rails - and where development time is measured in hours rather than days. It is licensed under the [MIT License](http://choosealicense.com/licenses/mit/).
 
