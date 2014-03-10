@@ -12,7 +12,7 @@ To run this project locally, you will need a Unix environment like Linux or OSX 
 - [Bundler](http://bundler.io)
 - [Sqlite](http://www.sqlite.org)
 
-Additionally, if you want to customize stylesheets, you will need a [LESS](http://lesscss.org) compiler like [CodeKit](https://incident57.com/codekit/), [LiveReload](http://livereload.com) or [SimpLess](http://wearekiss.com/simpless).
+Additionally, if you want to customize stylesheets, you will need a [LESS](http://lesscss.org) compiler. Some good LESS compiler GUIs are [CodeKit](https://incident57.com/codekit/), [LiveReload](http://livereload.com) or [SimpLess](http://wearekiss.com/simpless), or you can use the [official node.js package](http://lesscss.org/#using-less-installation) via the command line.
 
 # Setup
 1. download the project
