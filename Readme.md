@@ -1,10 +1,10 @@
 # hackathon-starter-sinatra
 
-This project is a minimalist starter framework intended to be used for small projects when speed of development is a priority. It was created to be used at "Startup Weekend" style events, where a significant portion of your development team may not have experience with Ruby or Rails - and where development time is measured in hours rather than days.
+This project is a minimalist starter framework intended to be used for small projects when speed of development is a priority. It was created to be used at "Startup Weekend" style events, where a significant portion of your development team may not have experience with Ruby or Rails - and where development time is measured in hours rather than days. It is licensed under the [MIT License](http://choosealicense.com/licenses/mit/).
 
 The project focuses on the following goals:
-- produce a framework with the dual priorities of speed of development and minimal learning curve
-- produce a minimal set of documentation for "how to do X"
+- produce a framework optimized for fast development with a minimal learning curve
+- produce a set of tutorials for "how to do X" that can be followed by programmers with minimal Ruby experience
 
 # Prerequisites
 To run this project locally, you will need a Unix environment like Linux or OSX with the following tools installed:
@@ -29,7 +29,6 @@ Additionally, if you want to customize stylesheets, you will need a [LESS](http:
 - [Bootstrap](http://getbootstrap.com) for dead-easy styling
 - Pre-packaged with the [Lumen](http://bootswatch.com/lumen/) [Bootswatch](http://bootswatch.com)  theme
 - Include the full [IcoMoon Free](http://icomoon.io/#preview-free) icon font
-- [OmniAuth](https://github.com/intridea/omniauth) for third-party logins
 - [Shotgun](https://github.com/rtomayko/shotgun) for automatically reloading the app after code changes
 - [ActiveSupport](http://guides.rubyonrails.org/active_support_core_extensions.html) with all core extensions loaded by default for all the bells and whistles
 - [Stripe Checkout](https://stripe.com/docs/checkout) for super-smooth and easy payment processing
@@ -161,6 +160,11 @@ For documentation on Stripe's Ruby API, see [here](https://stripe.com/docs/api?l
 Rails is a great tool for speeding up development - if your whole team knows Rails. Otherwise, Sinatra is better.
 
 For most hackathon-style micro applications, the full Rails framework introduces too much friction to the development process. It's got a deeply nested directory structure, lots of distracting boilerplate files, and too much implicit "magic" that can also trip up team members. Sinatra with ActiveRecord gives you the convenience of a Rails project with a flatter structure, less boilerplate to wade through, and more explicit code that is easier for people without Rails experience to follow.
+
+## Why no social logins?
+Social logins are convenient, but can alienate privacy-minded users and require additional logic to handle the case when a user attempts to log in with multiple services. For the sake of simplicity, this project has opted to use a traditional email/password login system.
+
+If your app needs social permissions, check out the excellent and well-documented [OmniAuth](http://intridea.github.io/omniauth/) project, which includes implementation examples for Sinatra.
 
 ## Why no tests?
 This is for a hackathon. TDD is great for longer-term projects, but it's unnecessary overhead when time is of the essence and bugs aren't a huge deal.
