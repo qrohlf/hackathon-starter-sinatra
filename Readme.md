@@ -15,13 +15,33 @@ To run this project locally, you will need a Unix environment like Linux or OSX 
 Additionally, if you want to customize stylesheets, you will need a [LESS](http://lesscss.org) compiler like [CodeKit](https://incident57.com/codekit/), [LiveReload](http://livereload.com) or [SimpLess](http://wearekiss.com/simpless).
 
 # Setup
-- bundle dependencies with `bundle install --without production`
-- if you have older versions of gems installed, you may want to `bundle update`
-- rename `.env-example` to `.env` and edit it with your project's API keys and database url.
-- create the database and examples table with `rake db:migrate`
-- seed the database with testing data with `rake db:seed`
-- run `shotgun` to start the app on your computer
-- point your web browser to [http://127.0.0.1:9393/](http://127.0.0.1:9393/) to see the app in action.
+1. download the project
+    ```
+    git clone git@github.com:qrohlf/hackathon-starter-sinatra.git
+    cd hackathon-starter-sinatra
+    ```
+
+2. install dependencies
+    ```
+    bundle install --without production
+    ```
+
+3. setup the environment variables
+    ```
+    mv .env-example .env
+    ```
+
+4. setup the database
+    ```
+    rake db:migrate
+    rake db:seed
+    ```
+
+5. start the development server
+    ```
+    shotgun
+    ```
+6. point your web browser to [http://127.0.0.1:9393/](http://127.0.0.1:9393/) to see the app in action.
 
 # Features
 - [Sinatra-ActiveRecord](https://github.com/janko-m/sinatra-activerecord) for database abstraction and Rake tasks
