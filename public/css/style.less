@@ -3,6 +3,10 @@
 @import "vendor/theme/bootswatch";
 @import (less) "vendor/icomoon/icomoon.css";
 
+// Collapse the navbar on medium screens AND small screens
+// Default is @screen-sm-min, which only collapses on small
+@grid-float-breakpoint: @screen-md-min;
+
 body {
     padding-top: 100px;
 }
