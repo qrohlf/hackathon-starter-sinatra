@@ -13,9 +13,17 @@ get '/' do
         lax_spacing: true,
         hard_wrap: true,
         tables: true)
-    # re-rendering static content on every page load is not the best idea
-    # but this really isn't a huge issue since it's just for the readme
-    @readme = md.render(File.read('Readme.md'))
+    
+    # It's convenient to write the Readme in markdown, but silly to re-render it each time.
+    # Instead, we cache it in tmp until the dyno gets killed or the Readme source is modified
+    if (File.exists?('tmp/Readme.html') and File.mtime('tmp/Readme.html') >= File.mtime('Readme.md'))
+        @readme = File.read('tmp/Readme.html')
+    else
+        @readme = md.render(File.read('Readme.md'))
+        Dir.mkdir 'tmp' unless Dir.exist? 'tmp'
+        File.open('tmp/Readme.html', 'w') {|f| f.write(@readme)}
+        puts "Regenerated tmp/Readme.html"
+    end
     haml :landing
 end
 
