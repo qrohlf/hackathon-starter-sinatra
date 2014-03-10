@@ -1,17 +1,19 @@
 # global settings go here
 configure do 
     set :app_name, "Hackathon Starter Sinatra"
-    set :nav_left, {                                            # Navigation: 
-        'Model Example' => '/examples',                          # you can specify the url as a string
+    # Navigation:
+    # you can specify the url as a string
+    # or you can pass a hash of other items
+    # to create a dropdown
+    set :nav_left, {
+        'Model Example' => '/examples',
         'Payment Example' => '/payment',
-        'Icons List' => '/css/vendor/icomoon/font_demo.html',
-        'Dropdown' => {                            # or you can pass a hash of other items
-            'dropdown item 1' => '#',                           # to create a dropdown
-            'dropdown item 2' => '#',
-            'dropdown item 3' => '#'
+        'Reference' => {
+            'View on GitHub' => 'https://github.com/qrohlf/hackathon-starter-sinatra',
+            'Icons List' => '/css/vendor/icomoon/font_demo.html',
+            'Glyph List' => 'http://getbootstrap.com/components/#glyphicons',
+            'Bootstrap' => 'http://getbootstrap.com/css/',
+            'More Themes' => 'http://bootswatch.com'
         }
-    }
-    set :nav_right, {
-        'View on Github' => 'https://github.com/qrohlf/hackathon-starter-sinatra'
     }
 end
