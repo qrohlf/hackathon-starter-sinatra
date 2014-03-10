@@ -36,7 +36,7 @@ Additionally, if you want to customize stylesheets, you will need a [LESS](http:
 
 # How do I do X?
 
-## X == add a model
+## X == Add a Model
 If you're not familiar with ActiveRecord and  ActiveRecord database migrations, follow this guide to create a new model for your application (replace 'example' with the name of your model, making sure to adjust for pluralization and capitalization).
 
 First, create the database table where the model's data will be stored:
@@ -81,12 +81,86 @@ Example.create(name: 'foo', description: 'bar')
 ```
 will create a new `Example` class and add it to the `examples` database.
 
+## X == Process Payments
+
+This project provides an easy and robust way to securely process payments through integration with [Stripe Checkout](https://stripe.com/checkout). To use Stripe for payment processing, you'll need an account (sign up [here](https://manage.stripe.com/register)) and a set of API keys. 
+
+To get your stripe API keys, head over to the API keys section of your account settings ([https://manage.stripe.com/account/apikeys](https://manage.stripe.com/account/apikeys)) and copy the secret and publishable keys into the `STRIPE_KEY_SECRET` and `STRIPE_KEY_PUBLIC` of your `.env` file. I suggest copying the testing keys first so that you can make sure everything is working properly, then switch to the development keys when you're ready to deploy.
+
+Your `.env` file should have something like this:
+
+```bash
+# Stripe secret key for server-side use
+STRIPE_KEY_SECRET='sk_test_ZBLAOTn26WEjvscp0euLTmlB'
+
+# Stripe publishable key for client-side use
+STRIPE_KEY_PUBLIC='pk_test_OWXc7nzt4IqPBFsQexpjs4vW'
+```
+*(these are not actual API keys)*
+
+Next, you'll want to look at the `checkout_button` helper provided in `app.rb`. You can pass this helper an amount (in cents) and an options hash and it will output a fully-functional Stripe checkout button. The following option keys are supported (all values should be strings):
+
+key | value
+---|---
+:name | What the charge is for
+:description | Additional details about the charge
+:image | URL for a 128x128 image to display for the charge
+:item | A url-safe string to pass to the charge callback
+
+A sample call to the `checkout_button` helper might look like this:
+
+```ruby
+checkout_button 500, {name: 'Example Charge Name', description: 'Pretty slick, eh?', item: 'example_charge'}
+```
+
+This creates a basic charge button for a $5 fee. When the user completes checkout with Stripe, a POST request will be issued to `/charge/example_charge` with a `stripeToken` parameter that can be used to charge the customer's card. The customer's card *will not* be charged until you explicity do so on the server.
+
+Here is an example implementation of how to actually process the charge in the charge callback (taken straight from `app.rb`):
+
+```ruby
+# process a charge for something
+# see https://stripe.com/docs/tutorials/charges for details
+post '/charge/:item' do 
+    # Get the credit card details submitted by the form
+    token = params[:stripeToken]
+
+    # The cost of your item should probably be stored in your model 
+    # or something. Everything is specified in cents
+    charge_amounts = {'example_charge' => 500, 'something_else' => 200}; 
+
+    # Create the charge on Stripe's servers - this will charge the user's card
+    begin
+        charge = Stripe::Charge.create(
+            :amount => charge_amounts[params[:item]], # amount in cents. 
+            :currency => "usd",
+            :card => token,
+            :description => "description for this charge" # this shows up in receipts
+            )
+        title 'Payment Complete'
+    rescue Stripe::CardError => e
+        title 'Card Declined'
+        flash.now[:warning] = 'Your card was declined'
+        # The card has been declined
+        puts "CardError"
+    rescue Stripe::InvalidRequestError => e
+        title 'Invalid Request'
+        flash.now[:warning] = 'Something went wrong with the transaction. Did you hit refresh? Don\'t do that.'
+    rescue => e
+        puts e
+    end
+
+    haml :charge
+end
+```
+
+For documentation on Stripe's Ruby API, see [here](https://stripe.com/docs/api?lang=ruby). Also, make sure to update your environment variables on the server when you deploy, since your `.env` file should not be checked in to git.
+
 # Rationale
 
 ## Why Sinatra and not Rails?
 Rails is a great tool for speeding up development - if your whole team knows Rails. Otherwise, Sinatra is better.
 
-For most hackathon-style micro applications, the full Rails framework introduces too much friction to the development process. It's got a deeply nested directory structure, lots of distracting boilerplate files, and a lot of implicit "magic" that can also trip up team members. Sinatra with ActiveRecord gives a lot of the convenience of a Rails project with a flatter structure, less boilerplate to wade through, and more explicit code that is easier for people without Rails experience to follow..
+For most hackathon-style micro applications, the full Rails framework introduces too much friction to the development process. It's got a deeply nested directory structure, lots of distracting boilerplate files, and too much implicit "magic" that can also trip up team members. Sinatra with ActiveRecord gives you the convenience of a Rails project with a flatter structure, less boilerplate to wade through, and more explicit code that is easier for people without Rails experience to follow.
 
 ## Why no tests?
 This is for a hackathon. TDD is great for longer-term projects, but it's unnecessary overhead when time is of the essence and bugs aren't a huge deal.

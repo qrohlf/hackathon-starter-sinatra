@@ -11,8 +11,10 @@ get '/' do
         autolink: true, 
         fenced_code_blocks: true, 
         lax_spacing: true,
-        hard_wrap: true)
-
+        hard_wrap: true,
+        tables: true)
+    # re-rendering static content on every page load is not the best idea
+    # but this really isn't a huge issue since it's just for the readme
     @readme = md.render(File.read('Readme.md'))
     haml :landing
 end
@@ -91,7 +93,7 @@ post '/charge/:item' do
             :amount => charge_amounts[params[:item]], # amount in cents. 
             :currency => "usd",
             :card => token,
-            :description => "description for this charge" # this shows up in email reciepts if enabled on Stripe
+            :description => "description for this charge" # this shows up in receipts
             )
         title 'Payment Complete'
     rescue Stripe::CardError => e
@@ -142,6 +144,7 @@ helpers do
     # amount should be the charge amount in cents
     # amount is required
     # options takes the following keys
+    # name: 'A name for the charge'
     # description: 'A description for the charge'
     # image: 'A url to an image to display'
     # item: 'Item to be passed to the charge callback'
