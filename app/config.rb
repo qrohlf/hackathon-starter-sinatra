@@ -13,6 +13,7 @@ configure do
             'Icons List' => '/css/vendor/icomoon/font_demo.html',
             'Glyph List' => 'http://getbootstrap.com/components/#glyphicons',
             'Bootstrap' => 'http://getbootstrap.com/css/',
+            'More Tools' => 'https://github.com/qrohlf/Tools#readme',
             'More Themes' => 'http://bootswatch.com'
         }
     }
