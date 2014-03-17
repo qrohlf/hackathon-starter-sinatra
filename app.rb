@@ -7,18 +7,18 @@ before do
 end
 
 get '/' do
-    md = Redcarpet::Markdown.new(Redcarpet::Render::HTML, 
-        autolink: true, 
-        fenced_code_blocks: true, 
-        lax_spacing: true,
-        hard_wrap: true,
-        tables: true)
-    
     # It's convenient to write the Readme in markdown, but silly to re-render it each time.
     # Instead, we cache it in tmp until the dyno gets killed or the Readme source is modified
     if (File.exists?('tmp/Readme.html') and File.mtime('tmp/Readme.html') >= File.mtime('Readme.md'))
         @readme = File.read('tmp/Readme.html')
     else
+        render_options = {with_toc_data: true}
+        extensions = {autolink: true, 
+            fenced_code_blocks: true, 
+            lax_spacing: true,
+            hard_wrap: true,
+            tables: true}
+        md = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(render_options), extensions)
         @readme = md.render(File.read('Readme.md'))
         Dir.mkdir 'tmp' unless Dir.exist? 'tmp'
         File.open('tmp/Readme.html', 'w') {|f| f.write(@readme)}

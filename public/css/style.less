@@ -6,9 +6,21 @@
 // Collapse the navbar on medium screens AND small screens
 // Default is @screen-sm-min, which only collapses on small
 @grid-float-breakpoint: @screen-md-min;
+@header-height: 54px;
 
 body {
-    padding-top: 100px;
+    margin-top: @header-height;
+    padding-top: 30px;
+}
+
+// Hack to prevent the fixed navbar from obscuring 
+// same-page anchors when the browser scrolls to them.
+[id]::before, [name]::before {
+  content: '';
+  height: 0;
+  padding-top: @header-height;
+  margin-top: -@header-height;
+  display: block; /* required for webkit browsers */
 }
 
 /* Sticky footer styles

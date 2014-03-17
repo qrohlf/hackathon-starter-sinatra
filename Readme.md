@@ -8,7 +8,7 @@ The project focuses on the following goals:
 
 # Prerequisites
 To run this project locally, you will need a Unix environment like Linux or OSX with the following tools installed:
-- [Ruby Version 2.1.1](#x--install-ruby)
+- [Ruby Version 2.1.1](#install-ruby)
 - [Bundler](http://bundler.io)
 - [Sqlite](http://www.sqlite.org)
 
@@ -53,9 +53,9 @@ Additionally, if you want to customize stylesheets, you will need a [LESS](http:
 - [ActiveSupport](http://guides.rubyonrails.org/active_support_core_extensions.html) with all core extensions loaded by default for all the bells and whistles
 - [Stripe Checkout](https://stripe.com/docs/checkout) for super-smooth and easy payment processing
 
-# How do I do X?
+# How do I...
 
-## X == Install Ruby
+## Install Ruby
 There are lots of different ways to install Ruby or update your Ruby version. Most linux distributions include a ruby package in their built-in repositories; however it is unlikely that this package is kept up-to-date with the latest version of Ruby. Most Ruby developers use a seperate tool like [RVM](https://rvm.io) or [rbenv](https://github.com/sstephenson/rbenv#how-rbenv-hooks-into-your-shell) to manage their Ruby versions.
 
 My personal preference is to use rbenv with the ruby-build and rbenv-gem-rehash plugins to install and manage Ruby versions. I'll show you how to install and use those tools here.
@@ -107,7 +107,7 @@ gem install bundler
 
 Hackathon Starter Sinatra requires you to use Ruby 2.1.1 (it doesn't matter whether you use the local or global method to set this).
 
-## X == Add a Model
+## Add a Model
 If you're not familiar with ActiveRecord and  ActiveRecord database migrations, follow this guide to create a new model for your application (replace 'example' with the name of your model, making sure to adjust for pluralization and capitalization).
 
 First, create the database table where the model's data will be stored:
@@ -152,7 +152,7 @@ Example.create(name: 'foo', description: 'bar')
 ```
 will create a new `Example` class and add it to the `examples` database.
 
-## X == Process Payments
+## Process Payments
 
 This project provides an easy and robust way to securely process payments through integration with [Stripe Checkout](https://stripe.com/checkout). To use Stripe for payment processing, you'll need an account (sign up [here](https://manage.stripe.com/register)) and a set of API keys. 
 
