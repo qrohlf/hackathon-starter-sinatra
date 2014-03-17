@@ -8,7 +8,7 @@ The project focuses on the following goals:
 
 # Prerequisites
 To run this project locally, you will need a Unix environment like Linux or OSX with the following tools installed:
-- [Ruby](https://www.ruby-lang.org/en/) (version 2.0 or newer)
+- [Ruby Version 2.1.1](#x--install-ruby)
 - [Bundler](http://bundler.io)
 - [Sqlite](http://www.sqlite.org)
 
