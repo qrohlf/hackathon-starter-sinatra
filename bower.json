@@ -1,0 +1,18 @@
+{
+  "name": "hackathon-starter-sinatra",
+  "version": "0.0.1",
+  "homepage": "https://github.com/qrohlf/hackathon-starter-sinatra",
+  "authors": [
+    "Quinn Rohlf <qr@qrohlf.com>"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "icomoon": "~0.0.1"
+  }
+}

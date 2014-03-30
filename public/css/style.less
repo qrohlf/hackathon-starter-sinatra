@@ -1,19 +1,46 @@
-@import "vendor/bootstrap/bootstrap";
-@import "vendor/theme/variables";
-@import "vendor/theme/bootswatch";
-@import (less) "vendor/icomoon/icomoon.css";
+// ====================================
+// SETUP
+// This is where we set up Bootstrap, apply a theme, etc.
+// You probably don't want to mess with this, other than to set
+// the theme name
+// ====================================
+// Set the theme - You can view a list of available themes at http://bootswatch.com
+@theme-name: 'lumen';
+// Import all Bootstrap modules
+@import "../vendor/bootstrap/less/bootstrap";
+// Import the theme
+@import "../vendor/bootswatch/@{theme-name}/variables";
+@import "../vendor/bootswatch/@{theme-name}/bootswatch";
+// Import the icomoon stylesheet
+// Note that you need to enable the --relative-urls LESS option
+// for this to work.
+@import (less) "../vendor/icomoon/style.css";
+// Fix the path for the glyphicons font included with Bootstrap
+@icon-font-path: '../vendor/bootstrap/fonts/';
 
-// Collapse the navbar on medium screens AND small screens
-// Default is @screen-sm-min, which only collapses on small
-@grid-float-breakpoint: @screen-md-min;
+
+// ====================================
+// CUSTOM STYLES
+// Everything below this point is just an example. All the heavy 
+// lifting is done up above, so feel free to change/remove any of this stuff
+// ====================================
+
+// Collapse the navbar on medium screens as well as small screens.
+// The default is @screen-sm-min, which will cause the navbar to 
+// only collapse on small screens.
+@grid-float-breakpoint: @screen-md-min; 
 @header-height: 54px;
 
+// Set the body margin and padding for using a fixed header.
+// If you aren't using .navbar-fixed-top in your layout, you
+// will probably want to delete this rule and the scroll hack
 body {
     margin-top: @header-height;
     padding-top: 30px;
 }
 
-// Hack to prevent the fixed navbar from obscuring 
+// SCROLL HACK
+// prevent the fixed navbar from obscuring 
 // same-page anchors when the browser scrolls to them.
 [id]::before, [name]::before {
   content: '';
@@ -22,17 +49,9 @@ body {
   margin-top: -@header-height;
   display: block; /* required for webkit browsers */
 }
-
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
-}
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 80px;
-}
+ 
+// Stick the footer to the bottom of the screen, even if the
+// content doesn't fill the full vertical height
 #footer {
   position: absolute;
   bottom: 0;
@@ -44,12 +63,22 @@ body {
   padding-bottom: 20px;
   text-align: center;
 }
-
-.btn [class^="icon-"], .btn [class*=" icon-"] {
-    vertical-align: -15%;
-    font-size: 16px;
+html { // needed for sticky footer
+  position: relative;
+  min-height: 100%;
+}
+body { // needed for sticky footer
+  margin-bottom: 80px; // set this to the height of your footer
 }
 
+// some style tweaks to icons inside buttons
+.btn [class^="icon-"], .btn [class*=" icon-"] {
+  font-size: 150%;
+  vertical-align: -15%;
+}
+
+// import some nice bootstrap table styling for the tables in 
+// the markdown-generated readme html
 .readme table {
   .table;
   .table-striped;
