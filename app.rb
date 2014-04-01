@@ -58,6 +58,29 @@ post '/users/new' do
     end
 end
 
+get '/users/password_reset' do
+    title "Reset Password"
+    haml :reset
+end
+
+get '/account' do
+    haml :account
+end
+
+post '/users/password_reset' do
+    unless @user.authenticate(params[:old_password])
+        flash.now[:warning] = "Sorry, wrong password"
+        return haml :reset
+    end
+    unless params[:password] == params[:password_confirmation]
+        flash.now[:warning] = "Sorry, password confirmation mismatch"
+        return haml :reset
+    end
+    @user.update({password: params[:password],password_confirmation: params[:password_confirmation]})  
+   flash[:info] = "Success!"
+   redirect '/'
+end
+
 get '/logout' do
     logout
     redirect '/'
