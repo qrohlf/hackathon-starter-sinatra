@@ -28,7 +28,7 @@ Additionally, if you want to customize stylesheets, you will need a [LESS](http:
 
 3. setup the environment variables
     ```
-    mv .env-example .env
+    mv .env.example .env
     ```
 
 4. setup the database
