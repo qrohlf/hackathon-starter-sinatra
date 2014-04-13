@@ -88,7 +88,11 @@ end
 
 post '/account' do
     require_login
-    @user.update(params)
+    if !@user.authenticate(params[:current_password])
+        flash.now[:warning] = "Current password was wrong"
+        return haml :account_settings
+    end
+    @user.update(params[:user])
     if @user.valid?
         flash.now[:info] = "Account info updated"
     else

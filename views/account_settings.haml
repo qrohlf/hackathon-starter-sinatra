@@ -2,12 +2,15 @@
     %h1="Account Settings for #{@user.email}"
     %form{method: 'post'}
         .form-group
-            %label{for: "email"} Email address
-            %input#email.form-control{placeholder: "Enter email", type: "email", name: "email", value: @user.email}
+            %label{for: "user[email]"} Email address
+            %input#email.form-control{placeholder: "Enter email", type: "email", name: "user[email]", value: @user.email}
         .form-group
-            %label{for: "password"} Password
-            %input#password.form-control{placeholder: "Blank for no change", type: "password", name: "password"}
+            %label{for: "current_password"} Current Password
+            %input#password.form-control{placeholder: "your password", type: "password", name: "current_password"}
         .form-group
-            %label{for: "password_confirmation"} Confirm Password
-            %input#password_confirmation.form-control{type: "password", name: "password_confirmation"}
+            %label{for: "user[password]"} New Password
+            %input#password.form-control{placeholder: "Blank for no change", type: "password", name: "user[password]"}
+        .form-group
+            %label{for: "password_confirmation"} Confirm New Password
+            %input#password_confirmation.form-control{type: "password", name: "user[password_confirmation]"}
         %button.btn.btn-primary{type: "submit"} Submit
