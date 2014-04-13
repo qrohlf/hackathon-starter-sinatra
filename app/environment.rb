@@ -38,5 +38,15 @@ ActiveRecord::Base.establish_connection(
 )
 
 # Stripe config
-
 Stripe.api_key = ENV['STRIPE_KEY_SECRET']
+
+# Email config
+Mail.defaults do
+  delivery_method :smtp, {
+    :port      => 587,
+    :address   => ENV["SMTP_SERVER"],
+    :user_name => ENV["SMTP_USERNAME"],
+    :password  => ENV["SMTP_PASS"],
+    :enable_starttls_auto => true,
+  }
+end

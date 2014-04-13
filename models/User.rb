@@ -5,4 +5,8 @@ class User < ActiveRecord::Base
         uniqueness: {case_sensitive: false, allow_blank: true}
 
     has_secure_password
+
+    def password_reset 
+        update(password_reset_token: SecureRandom.hex)
+    end
 end

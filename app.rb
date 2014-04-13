@@ -73,12 +73,73 @@ post '/login' do
     user = User.find_by_email(params[:email])
     if user and user.authenticate(params[:password])
         login user
-        redirect '/'
+        redirect URI.unescape(params[:dest] || '/')
     else
         flash.now[:info] = "Sorry, wrong username or password"
         haml :login, locals: {email: params[:email]}
     end
 end
+
+get '/account' do 
+    require_login
+    title 'Account Settings'
+    haml :account_settings
+end
+
+post '/account' do
+    require_login
+    @user.update(params)
+    if @user.valid?
+        flash.now[:info] = "Account info updated"
+    else
+        flash.now[:warning] = @user.errors.map{|attr, msg| "#{attr.to_s.humanize} #{msg}"}.join("<br>")
+    end
+    haml :account_settings
+end
+
+get '/account/forgot_password' do
+    haml :forgot_password
+end
+
+post '/account/forgot_password' do
+    user = User.find_by_email(params[:email])
+    if user
+        user.password_reset();
+        reset_link = "#{baseurl}/account/forgot_password/#{user.password_reset_token}"
+        mail_with_template(user.email, 
+            "Forgot Password Link from #{settings.app_name}", 
+            "Someone (hopefully you) requested a password reset on #{settings.app_name}. To reset your password, go to #{reset_link}.")
+        flash.now[:info] = "An email has been sent to #{user.email} with instructions to reset your password."
+    else
+        flash.now[:warning] = "We couldn't find an account matching that email."
+    end
+    haml :forgot_password
+end
+
+get '/account/forgot_password/:token' do
+    user = User.find_by(password_reset_token: params[:token])
+    haml :password_reset, locals: {user: user}
+end
+
+post '/account/forgot_password/:token' do
+    user = User.find_by(password_reset_token: params[:token])
+    if params[:password].blank?
+        flash.now[:warning] = "Password cannot be blank"
+        return haml :password_reset, locals: {user: user}
+    end
+
+    user.update(password: params[:password], password_confirmation: params[:password_confirmation])
+
+    if user.errors.size > 0
+        flash.now[:warning] = user.errors.map{|attr, msg| "#{attr.to_s.humanize} #{msg}"}.join("<br>")
+        haml :password_reset, locals: {user: user}
+    else
+        flash[:info] = "Password updated"
+        login user
+        redirect '/'
+    end
+end
+
 
 get '/payment' do 
     title 'Payment Example'
@@ -148,6 +209,14 @@ helpers do
         session.clear
     end
 
+    def require_login
+        unless @user
+            flash[:warning] = 'You must be logged in to view this page'
+            redirect "/login?dest=#{URI.escape(request.fullpath)}", 303
+            halt 403, haml(:unauthorized)
+        end
+    end
+
     # create a checkout button to charge the user
     # amount should be the charge amount in cents
     # amount is required
@@ -170,6 +239,36 @@ helpers do
 
         haml_tag :form, {action: "/charge/#{options[:item]}", method: 'POST'} do
             haml_tag 'script.stripe-button', defaults
+        end
+    end
+
+    # mail helper for convenience
+    def mail_with_template(to, subject, message, button = nil) 
+        html_message = erb :email_template, locals: {message_body: message, message_title: subject, button: button}
+        premailer = Premailer.new(html_message, with_html_string: true, css_to_attributes: false)
+        html_message_inlined = premailer.to_inline_css
+
+        m = Mail.new
+        m.from = "#{settings.app_name} <#{ENV['ADMIN_EMAIL']}>"
+        m.to = to
+        m.subject = subject
+
+        # m.text_part = Mail::Part.new do
+        #     body "foobar"
+        # end
+
+        m.html_part = Mail::Part.new do
+            content_type 'text/html; charset=UTF-8'
+            body html_message_inlined
+        end
+
+        m.deliver
+    end
+    def baseurl
+        if defined? settings.baseurl
+            settings.baseurl
+        else
+            request.base_url
         end
     end
 end

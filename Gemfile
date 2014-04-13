@@ -18,6 +18,9 @@ gem 'bcrypt'
 gem 'bcrypt-ruby' #legacy
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 gem 'redcarpet', require: 'redcarpet/compat' #markdown rendering
+gem 'mail'
+gem 'premailer' #for inlining email styles
+gem 'nokogiri' #premailer wants this
 
 group :development do
     gem "sqlite3"

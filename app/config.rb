@@ -1,6 +1,7 @@
 # global settings go here
 configure do 
     set :app_name, "Hackathon Starter Sinatra"
+    # set :baseurl, "http://hackathon-starter-sinatra.herokuapp.com" #no trailing slash!
     # Navigation:
     # you can specify the url as a string
     # or you can pass a hash of other items
