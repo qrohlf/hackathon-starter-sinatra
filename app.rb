@@ -122,11 +122,19 @@ end
 
 get '/account/forgot_password/:token' do
     user = User.find_by(password_reset_token: params[:token])
+    if (user == nil) 
+        flash[:warning] = "That password reset link has expired. Sorry!"
+        redirect '/'
+    end
     haml :password_reset, locals: {user: user}
 end
 
 post '/account/forgot_password/:token' do
     user = User.find_by(password_reset_token: params[:token])
+    if (user == nil) 
+        flash[:warning] = "That password reset link has expired. Sorry!"
+        redirect '/'
+    end
     if params[:password].blank?
         flash.now[:warning] = "Password cannot be blank"
         return haml :password_reset, locals: {user: user}
@@ -138,9 +146,9 @@ post '/account/forgot_password/:token' do
         flash.now[:warning] = user.errors.map{|attr, msg| "#{attr.to_s.humanize} #{msg}"}.join("<br>")
         haml :password_reset, locals: {user: user}
     else
-        flash[:info] = "Password updated"
-        login user
-        redirect '/'
+        user.update(password_reset_token: nil)
+        flash[:info] = "Password updated. You may now log in with your new password."
+        redirect '/login'
     end
 end
 
