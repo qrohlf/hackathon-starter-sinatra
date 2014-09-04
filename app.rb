@@ -1,6 +1,6 @@
 #######################################
 # Routes
-# 
+#
 
 before do
     login User.find(session[:user]) if User.exists? session[:user]
@@ -13,8 +13,8 @@ get '/' do
         @readme = File.read('tmp/Readme.html')
     else
         render_options = {with_toc_data: true}
-        extensions = {autolink: true, 
-            fenced_code_blocks: true, 
+        extensions = {autolink: true,
+            fenced_code_blocks: true,
             lax_spacing: true,
             hard_wrap: true,
             tables: true}
@@ -34,8 +34,8 @@ get '/examples' do
 end
 
 get '/examples/:id' do
-    title @example.name
     @example = Example.find(params[:id])
+    title @example.name
     haml :example
 end
 
@@ -52,7 +52,7 @@ post '/users/new' do
     if !user.valid?
         flash.now[:info] = user.errors.map{|attr, msg| "#{attr.to_s.humanize} #{msg}"}.join("<br>")
         haml :signup, locals: {email: params[:email]}
-    else 
+    else
         login user
         redirect '/'
     end
@@ -80,7 +80,7 @@ post '/login' do
     end
 end
 
-get '/account' do 
+get '/account' do
     require_login
     title 'Account Settings'
     haml :account_settings
@@ -110,8 +110,8 @@ post '/account/forgot_password' do
     if user
         user.password_reset();
         reset_link = "#{baseurl}/account/forgot_password/#{user.password_reset_token}"
-        mail_with_template(user.email, 
-            "Forgot Password Link from #{settings.app_name}", 
+        mail_with_template(user.email,
+            "Forgot Password Link from #{settings.app_name}",
             "Someone (hopefully you) requested a password reset on #{settings.app_name}. To reset your password, go to #{reset_link}.")
         flash.now[:info] = "An email has been sent to #{user.email} with instructions to reset your password."
     else
@@ -122,7 +122,7 @@ end
 
 get '/account/forgot_password/:token' do
     user = User.find_by(password_reset_token: params[:token])
-    if (user == nil) 
+    if (user == nil)
         flash[:warning] = "That password reset link has expired. Sorry!"
         redirect '/'
     end
@@ -131,7 +131,7 @@ end
 
 post '/account/forgot_password/:token' do
     user = User.find_by(password_reset_token: params[:token])
-    if (user == nil) 
+    if (user == nil)
         flash[:warning] = "That password reset link has expired. Sorry!"
         redirect '/'
     end
@@ -153,25 +153,25 @@ post '/account/forgot_password/:token' do
 end
 
 
-get '/payment' do 
+get '/payment' do
     title 'Payment Example'
     haml :payment
 end
 
 # process a charge for something
 # see https://stripe.com/docs/tutorials/charges for details
-post '/charge/:item' do 
+post '/charge/:item' do
     # Get the credit card details submitted by the form
     token = params[:stripeToken]
 
-    # The cost of your item should probably be stored in your model 
+    # The cost of your item should probably be stored in your model
     # or something. Everything is specified in cents
-    charge_amounts = {'example_charge' => 500, 'something_else' => 200}; 
+    charge_amounts = {'example_charge' => 500, 'something_else' => 200};
 
     # Create the charge on Stripe's servers - this will charge the user's card
     begin
         charge = Stripe::Charge.create(
-            :amount => charge_amounts[params[:item]], # amount in cents. 
+            :amount => charge_amounts[params[:item]], # amount in cents.
             :currency => "usd",
             :card => token,
             :description => "description for this charge" # this shows up in receipts
@@ -195,7 +195,7 @@ end
 #######################################
 # Helpers
 
-helpers do 
+helpers do
     # set the page title
     def title(t)
         @title = "#{t} | #{settings.app_name}"
@@ -238,11 +238,11 @@ helpers do
     # image: 'A url to an image to display'
     # item: 'Item to be passed to the charge callback'
     def checkout_button(amount, options = {})
-        defaults = {"data-amount" => amount, 
-            "data-description" => "2 widgets ($20.00)", 
-            "data-image" => "//placehold.it/128", 
-            "data-key" => ENV['STRIPE_KEY_PUBLIC'], 
-            "data-name" => settings.app_name, 
+        defaults = {"data-amount" => amount,
+            "data-description" => "2 widgets ($20.00)",
+            "data-image" => "//placehold.it/128",
+            "data-key" => ENV['STRIPE_KEY_PUBLIC'],
+            "data-name" => settings.app_name,
             :src => "https://checkout.stripe.com/checkout.js"}
 
         defaults['data-name'] = options[:name] if options[:name]
@@ -255,7 +255,7 @@ helpers do
     end
 
     # mail helper for convenience
-    def mail_with_template(to, subject, message, button = nil) 
+    def mail_with_template(to, subject, message, button = nil)
         html_message = erb :email_template, locals: {message_body: message, message_title: subject, button: button}
         premailer = Premailer.new(html_message, with_html_string: true, css_to_attributes: false)
         html_message_inlined = premailer.to_inline_css
@@ -284,4 +284,3 @@ helpers do
         end
     end
 end
-
